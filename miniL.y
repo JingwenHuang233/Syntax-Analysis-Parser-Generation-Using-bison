@@ -48,14 +48,14 @@ function:     FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGI
               {printf("function -> FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY\n");}
               ;
 
-ident:        IDENT                           {printf("ident -> IDENT %f\n", $1);}
+ident:        IDENT                           {printf("ident -> IDENT %s \n", $1);}
               ;
 
 declarations: /*empty*/                       {printf("declarations -> epsilon\n");}
               | declaration SEMICOLON declarations  {printf("declarations -> declaration SEMICOLON declarations\n");}
               ;
 
-statements:   /*empty*/                       {printf("statements -> empty\n");}
+statements:   /*empty*/                       {printf("statements -> epsilon\n");}
               |statement SEMICOLON statements {printf("statements -> statement SEMICOLON statements\n");}
               ;
 
@@ -117,7 +117,7 @@ multiplicative_expression:  term              {printf("multiplicative_expression
                             | term MOD multiplicative_expression  {printf("multiplicative_expression -> term MOD multiplicative_expression");}
                             ;
 
-term:         MINUS term %prec UMINUS         {printf("term -> UMINUS term\n");}
+term:         SUB term %prec UMINUS         {printf("term -> UMINUS term\n");}
               | var                           {printf("term -> var\n");}
               | NUMBER                        {printf("term -> NUMBER\n");}
               | L_PAREN expression R_PAREN    {printf("term -> L_PAREN expression R_PAREN\n");}  

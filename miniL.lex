@@ -55,7 +55,7 @@ DIGIT    [0-9]
 "<="                             {currPos += yyleng; return LTE;}	
 ">="                             {currPos += yyleng; return GTE;}	
  
-[a-zA-Z]|[a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]    {yylval.id_val = strdup(yytext); currPos += yyleng; return IDENT;}
+[a-zA-Z]|[a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]    {yylval.id_val = yytext; currPos += yyleng; return IDENT;}
 {DIGIT}+                                     {yylval.num_val = atoi(yytext); currPos += yyleng; return NUMBER;}
 
 
@@ -70,7 +70,7 @@ DIGIT    [0-9]
 
 ##.*                             {/* ignore comments */ currLine++; currPos = 1;}
 [ \t]+                           {/* ignore spaces */ currPos += yyleng;}
-"\n"                             {currLine++; currPos = 1; return END;}
+"\n"                             {currLine++; currPos = 1;}
 [0-9_][a-zA-Z0-9_]*              {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", currLine, currPos, yytext); exit(0);}
 [a-zA-Z][a-zA-Z0-9_]*[_]         {printf("Error at line %d, column %d: identifier \"%s\" cannot end with an underscore\n", currLine, currPos, yytext); exit(0);}
 .                                {printf("Error at line %d, column %d: unrecognized symbol \"%s\"\n", currLine, currPos, yytext); exit(0);}
