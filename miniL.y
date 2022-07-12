@@ -124,7 +124,8 @@ term:         SUB term %prec UMINUS         {printf("term -> UMINUS term\n");}
               | ident L_PAREN expressions R_PAREN   {printf("term -> ident L_PAREN expressions R_PAREN\n");}
               ;
 
-expressions:  expression COMMA expressions    {printf("expressions -> expression COMMA expressions\n");}
+expressions:  expression                      {printf("expressions -> expression\n");}
+              |expression COMMA expressions   {printf("expressions -> expression COMMA expressions\n");}
               | /*empty*/                     {printf("expressions -> epsilon\n");}
               ;
 
